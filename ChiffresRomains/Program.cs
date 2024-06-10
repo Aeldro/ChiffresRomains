@@ -43,8 +43,44 @@
                     }
                     return true;
                 }
+
+                static bool isMirrored(string romanString)
+                {
+                    for (int i = 1; i < romanString.Count() - 1; i++)
+                    {
+                        switch (romanString[i])
+                        {
+                            case 'V':
+                            case 'X':
+                                if (romanString[i - 1] == 'I' && romanString[i + 1] == 'I')
+                                {
+                                    return false;
+                                }
+                                break;
+
+                            case 'L':
+                            case 'C':
+                                if (romanString[i - 1] == 'X' && romanString[i + 1] == 'X')
+                                {
+                                    return false;
+                                }
+                                break;
+
+                            case 'D':
+                            case 'M':
+                                if (romanString[i - 1] == 'C' && romanString[i + 1] == 'C')
+                                {
+                                    return false;
+                                }
+                                break;
+                        }
+                    }
+                    return true;
+                }
+
                 Console.WriteLine("Entrez un chiffre romain.");
                 string romanNumber = Console.ReadLine();
+                romanNumber = romanNumber.ToUpper();
 
                 for (int i = 0; i < romanNumber.Length; i++)
                 {
@@ -121,7 +157,7 @@
                     }
                 }
 
-                if (isOrdered(list) && isMoreThanTreeReps(list))
+                if (isOrdered(list) && isMoreThanTreeReps(list) && isMirrored(romanNumber))
                 {
                     foreach (int item in list)
                     {
